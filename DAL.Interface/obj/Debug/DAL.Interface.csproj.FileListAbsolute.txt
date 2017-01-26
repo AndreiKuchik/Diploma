@@ -1,0 +1,5 @@
+E:\EpamTraning\Project\ProjectForEpam\DAL.Interface\obj\Debug\DAL.Interface.csprojResolveAssemblyReference.cache
+E:\EpamTraning\Project\ProjectForEpam\DAL.Interface\bin\Debug\DAL.Interface.dll
+E:\EpamTraning\Project\ProjectForEpam\DAL.Interface\bin\Debug\DAL.Interface.pdb
+E:\EpamTraning\Project\ProjectForEpam\DAL.Interface\obj\Debug\DAL.Interface.dll
+E:\EpamTraning\Project\ProjectForEpam\DAL.Interface\obj\Debug\DAL.Interface.pdb

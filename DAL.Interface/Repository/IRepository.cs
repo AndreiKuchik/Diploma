@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+using DAL.Interface.Entity;
+
+namespace DAL.Interface.Repository
+{
+    public interface IRepository<TEntity> where TEntity:IEntity
+    {
+            //int GetCount(string userName = null);
+            //TEntity GetById(int key);
+            //IEnumerable<TEntity> GetAll();
+            //TEntity GetByPredicate(Expression<Func<TEntity, bool>> expression);
+            int Create(TEntity e);
+            bool Delete(int id);
+            //IEnumerable<TEntity> GetAll();
+        //void Update(TEntity entity);
+
+    }
+}

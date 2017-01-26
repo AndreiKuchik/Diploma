@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LocalDatabaseBlogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="IdComments" />
+    </Key>
+    <Property Name="IdComments" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Comments" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdPeople" Type="Int32" Nullable="false" />
+    <Property Name="IdRecord" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Person" Relationship="Self.FK_Comments_People" FromRole="Comments" ToRole="Person" />
+    <NavigationProperty Name="Record" Relationship="Self.FK_Comments_Record" FromRole="Comments" ToRole="Records" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="IdPeople" />
+    </Key>
+    <Property Name="IdPeople" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MobilPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdRole" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_People" FromRole="Person" ToRole="Comments" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Person_Roles" FromRole="Person" ToRole="Roles" />
+    <NavigationProperty Name="Records" Relationship="Self.FK_Records_Person" FromRole="Person" ToRole="Records" />
+    <NavigationProperty Name="Resourses" Relationship="Self.FK_Resourses_Person" FromRole="Person" ToRole="Resourses" />
+    <NavigationProperty Name="Signs" Relationship="Self.FK_Sign_Person" FromRole="Person" ToRole="Sign" />
+  </EntityType>
+  <EntityType Name="Record">
+    <Key>
+      <PropertyRef Name="IdRecord" />
+    </Key>
+    <Property Name="IdRecord" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateOfPublication" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IdPeople" Type="Int32" Nullable="false" />
+    <Property Name="IdTheme" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Record" FromRole="Records" ToRole="Comments" />
+    <NavigationProperty Name="Person" Relationship="Self.FK_Records_Person" FromRole="Records" ToRole="Person" />
+    <NavigationProperty Name="Theme" Relationship="Self.FK_Records_Theme" FromRole="Records" ToRole="Theme" />
+    <NavigationProperty Name="Resourses" Relationship="Self.FK_Resourses_Records" FromRole="Records" ToRole="Resourses" />
+  </EntityType>
+  <EntityType Name="Resours">
+    <Key>
+      <PropertyRef Name="IdResourse" />
+    </Key>
+    <Property Name="IdResourse" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Resourse" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="IdRecord" Type="Int32" />
+    <Property Name="IdPeople" Type="Int32" />
+    <NavigationProperty Name="Person" Relationship="Self.FK_Resourses_Person" FromRole="Resourses" ToRole="Person" />
+    <NavigationProperty Name="Record" Relationship="Self.FK_Resourses_Records" FromRole="Resourses" ToRole="Records" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="IdRole" />
+    </Key>
+    <Property Name="IdRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="People" Relationship="Self.FK_Person_Roles" FromRole="Roles" ToRole="Person" />
+  </EntityType>
+  <EntityType Name="Sign">
+    <Key>
+      <PropertyRef Name="IdOwner" />
+      <PropertyRef Name="IdSign" />
+    </Key>
+    <Property Name="IdOwner" Type="Int32" Nullable="false" />
+    <Property Name="IdSign" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Person" Relationship="Self.FK_Sign_Person" FromRole="Sign" ToRole="Person" />
+  </EntityType>
+  <EntityType Name="Theme">
+    <Key>
+      <PropertyRef Name="IdTheme" />
+    </Key>
+    <Property Name="IdTheme" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TitleOfTheme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Records" Relationship="Self.FK_Records_Theme" FromRole="Theme" ToRole="Records" />
+  </EntityType>
+  <Association Name="FK_Comments_People">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="IdPeople" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="IdPeople" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Record">
+    <End Role="Records" Type="Self.Record" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Records">
+        <PropertyRef Name="IdRecord" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="IdRecord" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Person_Roles">
+    <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+    <End Role="Person" Type="Self.Person" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="IdRole" />
+      </Principal>
+      <Dependent Role="Person">
+        <PropertyRef Name="IdRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Records_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Records" Type="Self.Record" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="IdPeople" />
+      </Principal>
+      <Dependent Role="Records">
+        <PropertyRef Name="IdPeople" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Resourses_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+    <End Role="Resourses" Type="Self.Resours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="IdPeople" />
+      </Principal>
+      <Dependent Role="Resourses">
+        <PropertyRef Name="IdPeople" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sign_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Sign" Type="Self.Sign" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="IdPeople" />
+      </Principal>
+      <Dependent Role="Sign">
+        <PropertyRef Name="IdOwner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Records_Theme">
+    <End Role="Theme" Type="Self.Theme" Multiplicity="1" />
+    <End Role="Records" Type="Self.Record" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Theme">
+        <PropertyRef Name="IdTheme" />
+      </Principal>
+      <Dependent Role="Records">
+        <PropertyRef Name="IdTheme" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Resourses_Records">
+    <End Role="Records" Type="Self.Record" Multiplicity="0..1" />
+    <End Role="Resourses" Type="Self.Resours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Records">
+        <PropertyRef Name="IdRecord" />
+      </Principal>
+      <Dependent Role="Resourses">
+        <PropertyRef Name="IdRecord" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BlogIDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Comments" EntityType="Self.Comment" />
+    <EntitySet Name="People" EntityType="Self.Person" />
+    <EntitySet Name="Records" EntityType="Self.Record" />
+    <EntitySet Name="Resourses" EntityType="Self.Resours" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Signs" EntityType="Self.Sign" />
+    <EntitySet Name="Themes" EntityType="Self.Theme" />
+    <AssociationSet Name="FK_Comments_People" Association="Self.FK_Comments_People">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Record" Association="Self.FK_Comments_Record">
+      <End Role="Records" EntitySet="Records" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Person_Roles" Association="Self.FK_Person_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Person" EntitySet="People" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Records_Person" Association="Self.FK_Records_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Records" EntitySet="Records" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Resourses_Person" Association="Self.FK_Resourses_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Resourses" EntitySet="Resourses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sign_Person" Association="Self.FK_Sign_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Sign" EntitySet="Signs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Records_Theme" Association="Self.FK_Records_Theme">
+      <End Role="Theme" EntitySet="Themes" />
+      <End Role="Records" EntitySet="Records" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Resourses_Records" Association="Self.FK_Resourses_Records">
+      <End Role="Records" EntitySet="Records" />
+      <End Role="Resourses" EntitySet="Resourses" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

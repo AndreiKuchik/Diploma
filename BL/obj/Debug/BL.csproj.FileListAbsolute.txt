@@ -1,0 +1,9 @@
+E:\EpamTraning\Project\ProjectForEpam\BL\obj\Debug\BL.csprojResolveAssemblyReference.cache
+E:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\BL.dll
+E:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\BL.pdb
+E:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\BL.Interface.dll
+E:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\DAL.Interface.dll
+E:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\BL.Interface.pdb
+E:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\DAL.Interface.pdb
+E:\EpamTraning\Project\ProjectForEpam\BL\obj\Debug\BL.dll
+E:\EpamTraning\Project\ProjectForEpam\BL\obj\Debug\BL.pdb

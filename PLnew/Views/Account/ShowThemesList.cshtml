@@ -1,0 +1,35 @@
+﻿@model IEnumerable<PLnew.ViewModels.ThemeViewModel>
+<div class="list-group">
+
+    
+
+
+    @foreach (var mod in Model)
+{
+    <div>
+        <div class="row smbox">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+            </div>
+            <h4 class="list-group-item-heading">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+
+                    @Html.DisplayFor(modelItem => mod.TitleOfTheme)
+                </div>
+            </h4>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+            </div>
+            @*<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <ul class="nav nav-pills ">*@
+            @*<p>mod</p>*@
+            @*<li>@Html.ActionLink("Theme", "About", "Home")</li>*@
+            @*</ul>
+                </div>*@
+        </div>
+
+    </div>
+
+}
+</div>

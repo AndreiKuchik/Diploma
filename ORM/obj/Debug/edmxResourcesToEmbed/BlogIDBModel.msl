@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LocalDatabaseBlogModelStoreContainer" CdmEntityContainer="LocalDatabaseBlogEntities">
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="LocalDatabaseBlogModel.Comment">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="IdComments" ColumnName="IdComments" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="IdPeople" ColumnName="IdPeople" />
+          <ScalarProperty Name="IdRecord" ColumnName="IdRecord" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="LocalDatabaseBlogModel.Person">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="IdPeople" ColumnName="IdPeople" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MobilPhone" ColumnName="MobilPhone" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Records">
+      <EntityTypeMapping TypeName="LocalDatabaseBlogModel.Record">
+        <MappingFragment StoreEntitySet="Records">
+          <ScalarProperty Name="IdRecord" ColumnName="IdRecord" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="DateOfPublication" ColumnName="DateOfPublication" />
+          <ScalarProperty Name="IdPeople" ColumnName="IdPeople" />
+          <ScalarProperty Name="IdTheme" ColumnName="IdTheme" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Resourses">
+      <EntityTypeMapping TypeName="LocalDatabaseBlogModel.Resours">
+        <MappingFragment StoreEntitySet="Resourses">
+          <ScalarProperty Name="IdResourse" ColumnName="IdResourse" />
+          <ScalarProperty Name="Resourse" ColumnName="Resourse" />
+          <ScalarProperty Name="IdRecord" ColumnName="IdRecord" />
+          <ScalarProperty Name="IdPeople" ColumnName="IdPeople" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="LocalDatabaseBlogModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+          <ScalarProperty Name="Role1" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Signs">
+      <EntityTypeMapping TypeName="LocalDatabaseBlogModel.Sign">
+        <MappingFragment StoreEntitySet="Sign">
+          <ScalarProperty Name="IdOwner" ColumnName="IdOwner" />
+          <ScalarProperty Name="IdSign" ColumnName="IdSign" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Themes">
+      <EntityTypeMapping TypeName="LocalDatabaseBlogModel.Theme">
+        <MappingFragment StoreEntitySet="Theme">
+          <ScalarProperty Name="IdTheme" ColumnName="IdTheme" />
+          <ScalarProperty Name="TitleOfTheme" ColumnName="TitleOfTheme" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

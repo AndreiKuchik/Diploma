@@ -1,0 +1,34 @@
+﻿@model IEnumerable<PLnew.Models.RecordViewModel>
+
+
+@foreach (var item in Model)
+{
+    
+    <div class="col-md-3 textArea">
+        <div class="form-group">
+            <div class="comment">
+                @item.Theme
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9 textArea">
+        <div class="form-group">
+            <div class="comment">
+                @item.Record
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <div class="helpInfo ">
+                        <div class="date  ">
+                            @item.DateOfPublication
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

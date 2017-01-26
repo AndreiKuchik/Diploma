@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PLnew.ViewModels.ThemeViewModel>
+@{
+    ViewBag.Title = "Thems";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="~/Content/IndexAccountStyle.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+    <div align="center" class="navbar-collapse collapse">
+        <h2>All Thems</h2>
+        <form class="navbar-form ">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search theme">
+            </div>
+            <button type="submit" class="btn btn-default">Search</button>
+        </form>
+
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-xs-4 col-sm-3 col-lg-2">
+                <div class="thumbnail box">
+                    <div class="caption">
+                        <h3>
+                            <a href="#">@item.TitleOfTheme</a>
+                        </h3><span class="badge">@item.Count</span>
+                        
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    </body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript"
+            src="@Url.Content("~/scripts/AjaxDemo.js")">
+    </script>
+}
+@Scripts.Render("~/scripts/jquery-1.10.2.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
+</html>

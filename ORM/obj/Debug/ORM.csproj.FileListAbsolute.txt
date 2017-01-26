@@ -1,0 +1,10 @@
+E:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\ORM.dll.config
+E:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\ORM.dll
+E:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\ORM.pdb
+E:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\EntityFramework.dll
+E:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\EntityFramework.SqlServer.dll
+E:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\EntityFramework.xml
+E:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\EntityFramework.SqlServer.xml
+E:\EpamTraning\Project\ProjectForEpam\ORM\obj\Debug\ORM.csprojResolveAssemblyReference.cache
+E:\EpamTraning\Project\ProjectForEpam\ORM\obj\Debug\ORM.dll
+E:\EpamTraning\Project\ProjectForEpam\ORM\obj\Debug\ORM.pdb
