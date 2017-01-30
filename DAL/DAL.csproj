@@ -64,7 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Concrete\CommentRepository.cs" />
     <Compile Include="Concrete\RecordRepository.cs" />
+    <Compile Include="Concrete\SourceRepository.cs" />
     <Compile Include="Concrete\ThemeRepository.cs" />
     <Compile Include="Concrete\UnitOfWork.cs" />
     <Compile Include="Concrete\UserRepository.cs" />

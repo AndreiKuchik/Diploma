@@ -14,7 +14,7 @@ namespace PLnew.Controllers
         private readonly IUserServices service;
         private readonly IThemeServices themeServices;
         private readonly IRecordService recordService;
-        private static PersonViewModel guestModel { get; set; }
+        //private static PersonViewModel guestModel { get; set; }
 
 
           public GuestController()
@@ -32,48 +32,50 @@ namespace PLnew.Controllers
         {
             if (id != 0)
             {
-
-                guestModel = service.GetById(id).ToPLUser();
-                AccountController.personModel.ListFriendId = service.GetSubscribe(AccountController.personModel.Id);
-                foreach (var sign in AccountController.personModel.ListFriendId)
-                {
-                    if (sign == id)
-                    {
-                        guestModel.IdRole = 4;
-                    }
-                }
+                Session["idGuest"] = id;
+                PersonViewModel guestModel = service.GetById(id).ToPLUser();
+                ViewBag.Status = service.GetSubscribe(Convert.ToInt32(Session["id"]),id);
                 return View(guestModel);
             }
-            return View(guestModel);
+            return View(service.GetById(Convert.ToInt32(Session["idGuest"])).ToPLUser());
         }
 
-        public ActionResult ShowRecordsListNull(int id = 0)
+        public ActionResult ShowRecordsListNull()
         {
-            if (id == 0)
-            {
-                return PartialView("_ShowResordList", recordService.GetAllRecords(guestModel.Id).Select(rec => rec.ToMVCRecord()));
+            ViewBag.Id = Session["id"];
+            return PartialView("_ShowResordList", recordService.GetAllRecords(Convert.ToInt32(Session["idGuest"])).Select(rec => rec.ToMVCRecord()));
 
-            }
-            return PartialView("_ShowResordList", recordService.GetAllRecords(id).Select(rec => rec.ToMVCRecord()));
+          
         }
 
         public ActionResult ShowInfoList(PersonViewModel model)
         {
             if (model == null)
             {
-                return PartialView("_ShowInfoList", guestModel);
+                return PartialView("_ShowInfoList", service.GetById(Convert.ToInt32(Session["idGuest"])).ToPLUser());
 
             }
             return PartialView("_ShowInfoList", model);
         }
 
-        public ActionResult Subscribe(int id =0)
+        public ActionResult Subscribe()
         {
-                AccountController.personModel.ListFriendId=service.ToSubscribe(AccountController.personModel.Id, guestModel.Id);
-                guestModel.IdRole = 4;
-                return View("Index", guestModel);
+          
+            service.ToSubscribe(Convert.ToInt32(Session["id"]), Convert.ToInt32(Session["idGuest"]));
+            ViewBag.Status = true;
+            return View("Index", service.GetById(Convert.ToInt32(Session["idGuest"])).ToPLUser());
             
            
+        }
+
+        public ActionResult Unsubscribe()
+        {
+
+            service.Unsubscribe(Convert.ToInt32(Session["id"]), Convert.ToInt32(Session["idGuest"]));
+            ViewBag.Status = false;
+            return View("Index", service.GetById(Convert.ToInt32(Session["idGuest"])).ToPLUser());
+
+
         }
 	}
 }

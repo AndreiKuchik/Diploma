@@ -76,10 +76,30 @@ namespace DAL.Concrete
        
         }
 
+        public bool DeleteByIdTheme(int IdTheme)
+        {
+            try
+            {
+               
+                var ListRecord = (from record in context.Records where record.IdTheme == IdTheme select record);
+                foreach (var friend in ListRecord)
+                {
+                    context.Records.Remove(friend);
+                    context.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
         public IEnumerable<RecordDal> GetAll(int IdP)
         {
             try
             {
+                 CommentRepository commentRepository = new CommentRepository();
                 var q = (from s in context.Records where s.IdPeople == IdP select s);
                 List<RecordDal> model = new List<RecordDal>();
                 foreach (var record in q)
@@ -97,16 +117,17 @@ namespace DAL.Concrete
                 {
                     var them = (from s in context.Themes where s.IdTheme==record.IdTheme select s).FirstOrDefault();
                     record.Theme = them.TitleOfTheme;
-                    
-                }
+                    record.Comments = commentRepository.GetAll(record.Id);
 
+                }
+               
+               
                 IEnumerable<RecordDal> mod = model;
                 return mod;
                 
             }
             catch (Exception)
             {
-
                 return null;
             }
         }
@@ -171,14 +192,15 @@ namespace DAL.Concrete
             }
        
         }
-        
         public bool DeleteByIdUser(int id)
         {
             try
             {
-              var ListIdFriends = (from record in context.Records where record.IdPeople == id select record);
+            CommentRepository comment = new CommentRepository();
+            var ListIdFriends = (from record in context.Records where record.IdPeople == id select record);
             foreach (var friend in ListIdFriends)
             {
+                comment.DeleteAllForRecord(friend.IdRecord);
                 context.Records.Remove(friend);
                 context.SaveChanges();
             }

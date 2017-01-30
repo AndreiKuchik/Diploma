@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -23,61 +24,136 @@ namespace PLnew.Controllers
         private readonly IUserServices service;
         private readonly IThemeServices themeServices;
         private readonly IRecordService recordService;
-        public static PersonViewModel personModel { get; set; }
+        private readonly ICommentService commentService;
+        private readonly IResourceServices resourceService;
+        //public static PersonViewModel personModel { get; set; }
 
         public AccountController()
         { }
-        public AccountController(IUserServices service, IThemeServices themeServices, IRecordService recordService)
+        public AccountController(IUserServices service, IThemeServices themeServices, IRecordService recordService, ICommentService commentService, IResourceServices resourceService)
         {
             this.service = service;
             this.themeServices = themeServices;
             this.recordService = recordService;
+            this.commentService = commentService;
+            this.resourceService = resourceService;
 
         }
 
-        public ActionResult Index(PersonViewModel model)
+#region Person Helper
+        public ActionResult Index()
         {
+            
+                PersonViewModel personModel = new PersonViewModel();
+                personModel = service.GetById(Convert.ToInt32(Session["id"])).ToPLUser();
+                if (personModel != null)
+                {
+                    Session["idRole"] = personModel.IdRole;
+                    return View(personModel);
+                }
+                else
+                    return View("Error");
+           
+        }
+
+        public ActionResult EditAccount()
+        {
+            PersonViewModel personModel = new PersonViewModel();
+            personModel = service.GetById(Convert.ToInt32(Session["id"])).ToPLUser();
             if (personModel != null)
             {
                 return View(personModel);
             }
-            personModel = model;
-            return View(model);
+            else
+                return View("Error");
+           
         }
-
-        public ActionResult ShowThemesList()
+        [HttpPost]
+        public ActionResult EditAccount(PersonViewModel model)
         {
 
-
-            return PartialView(themeServices.GetAllThemes().Select(theme => theme.ToMVCTheme()));
-
-         }
-
-        public ActionResult ShowListFriend(int id=0)
-        {
-            if (id == 0)
+            if (ModelState.IsValid)
             {
-                return PartialView(service.GetAllFriends(personModel.Id).Select(friend => friend.ToPLUser())); 
-                
+                model.Id = Convert.ToInt32(Session["id"]);
+                int result = service.Update(model.ToBllPerson());
+                if (result>0)
+                {
+                    return RedirectToAction("Index", "Account");
+                }
+                else if (result == 0)
+                {
+                    ViewBag.Repetition = 1;
+                    return View(model);
+                }
+                else 
+                {
+                    return View("Error");
+
+                }
+
             }
-            return PartialView(service.GetAllFriends(id).Select(friend => friend.ToPLUser()));
+            return View("Error");
+            
+        }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(RegistrationViewModel model)
+        {
+            Session["id"] = null;
+            if (ModelState.IsValid)
+            {
+                int id = service.CreateUser(model.ToBllUser());
+                Session["id"] = id;
+                if (id > 0)
+                {
+                    return RedirectToAction("Index", "Account", model.RefisterToPerson(id));
+                }
+                else if (id == 0)
+                {
+
+                    return View(model);
+
+                }
+
+            }
+            return View("Error");
+
+            // If we got this far, something failed, redisplay form
 
         }
-     
-        public ActionResult ShowRecordsList( int Id,string mod=null, string theme=null)
+        //[HttpGet]
+
+
+        public ActionResult Delete()
+        {
+            if (service.Delete(Convert.ToInt32(Session["id"])))
+            {
+                Session["id"] = null;
+                return RedirectToAction("Index", "Home");
+            }
+            return View("Error");
+        }
+#endregion
+        //[HttpPost]
+#region Record Helper
+        public ActionResult ShowRecordsList(string mod=null, string theme=null)
         {
 
-            if (mod != null&& theme !=null)
+            if (mod != null&& theme !=null&& mod!="" && theme!="")
             {
                 RecordViewModel record = new RecordViewModel();
                 record.Record = mod;
-                record.IdPeople = Id;
+                record.IdPeople = Convert.ToInt32(Session["id"]);
                 record.Theme = theme;
                 if (recordService.CreateRecord(record.ToBlRecord()) > 0)
                 {
                     if (Request.IsAjaxRequest())
                     {
-                        return PartialView(recordService.GetAllRecords(Id).Select(rec => rec.ToMVCRecord()));
+                        return PartialView(recordService.GetAllRecords(Convert.ToInt32(Session["id"])).Select(rec => rec.ToMVCRecord()));
                     }
                     return RedirectToAction("Index");
                     
@@ -88,105 +164,189 @@ namespace PLnew.Controllers
                 }
                 
             }
-            return PartialView(recordService.GetAllRecords(Id).Select(rec => rec.ToMVCRecord()));
+            return PartialView(recordService.GetAllRecords(Convert.ToInt32(Session["id"])).Select(rec => rec.ToMVCRecord()));
 
         }
-        
-        public ActionResult ShowRecordsListNull(int Id=0)
-        {
-            if (Id == 0)
-            {
-                return PartialView("ShowRecordsList", recordService.GetAllRecords(personModel.Id).Select(rec => rec.ToMVCRecord()));
-
-            }
-            return PartialView("ShowRecordsList",recordService.GetAllRecords(Id).Select(rec => rec.ToMVCRecord()));
-
-        }
-       
-        public ActionResult Friends()
-        {
-            
-            return View(service.GetAllFriends(personModel.Id).Select(friend => friend.ToPLUser()));
-
-        }
-
-        public ActionResult SearchFriends()
-        {
-            //var info = ListRecordViewModel.Records;
-            return View("Friends", service.GetAllWhithCount().Select(friend => friend.ToPLUser()));
-        }
-        
-        public ActionResult Thems()
-        {
-
-            return View(themeServices.GetAllWithCount().Select(theme => theme.ToMVCTheme()));
-        }
-       
-
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Register(RegistrationViewModel model)
-        {
-          
-            if (ModelState.IsValid)
-            {
-                int id =service.CreateUser(model.ToBllUser());
-                if ( id >0)
-                {
-                    return RedirectToAction("Index", "Account", model.RefisterToPerson(id));
-                }
-                else if (id ==0)
-                {
-                    
-                    return View(model); 
-                    
-                }
-
-            }
-            return View("Error");
-
-            // If we got this far, something failed, redisplay form
-
-        }
-        //[HttpGet]
         public ActionResult DeleteRecord(int id = 0)
         {
-           if (recordService.Delete(id))
+            if (recordService.Delete(id))
             {
-                return RedirectToAction("Index", "Account", personModel);
+                return RedirectToAction("Index", "Account", Convert.ToInt32(Session["id"]));
             }
             return View("Error");
         }
-
-        public ActionResult Delete()
-        {
-            if (service.Delete(personModel.Id))
-            {
-                personModel = null;
-                return RedirectToAction("Index", "Home");
-            }
-            return View("Error");
-        }
-
-        //[HttpGet]
-        public ActionResult EditRecord(int IdRecord,string text, string theme)
+        public ActionResult EditRecord(int IdRecord, string text, string theme)
         {
             RecordViewModel record = new RecordViewModel();
             record.Id = IdRecord;
             record.Record = text;
             record.Theme = theme;
-            if(recordService.ChangeRecord(record.ToBlRecord()))
-            return RedirectToAction("Index", "Account", personModel);
+            if (recordService.ChangeRecord(record.ToBlRecord()))
+                return RedirectToAction("Index", "Account", Convert.ToInt32(Session["id"]));
             else
             {
                 return View("Error");
             }
         }
+#endregion
 
+       
+#region Friends Helper
+        public ActionResult Friends()
+        {
+            ViewBag.Message = "My friends";
+            return View(service.GetAllFriends(Convert.ToInt32(Session["id"])).Select(friend => friend.ToPLUser()));
+
+        }
+
+        public ActionResult SearchFriends()
+        {
+            ViewBag.Message = "All accounts registered on the site";
+            ViewBag.IdOwner = Session["id"];
+            //var info = ListRecordViewModel.Records;
+            return View("Friends", service.GetAllWhithCount().Select(friend => friend.ToPLUser()));
+        }
+
+        [HttpPost]
+        public ActionResult SearchFriends(string person)
+        {
+            ViewBag.Message = "All accounts registered on the site";
+            ViewBag.IdOwner = Session["id"];
+            return View("Friends", service.Search(person).Select(per=>per.ToPLUser()));
+        }
+        public ActionResult ShowListFriend(int id = 0)
+        {
+           return PartialView(service.GetAllFriends(Convert.ToInt32(Session["id"])).Select(friend => friend.ToPLUser()));
+        }
+#endregion
+
+#region Thems Helper
+        public ActionResult Thems()
+        {
+
+            return View(themeServices.GetAllWithCount().Select(theme => theme.ToMVCTheme()));
+        }
+        public ActionResult ShowThemesList()
+        {
+
+
+            return PartialView(themeServices.GetAllThemes().Select(theme => theme.ToMVCTheme()));
+
+        }
+
+
+        [HttpPost]
+        public ActionResult SearchTheme(string theme)
+        {
+            return View("Thems", themeServices.Search(theme).Select(m=>m.ToMVCTheme()));
+        }
+        public ActionResult DeleteTheme(int id = 0)
+        {
+            if (themeServices.Delete(id))
+            {
+                return RedirectToAction("Thems", "Account");
+            }
+            return View("Error");
+        }
+       
+#endregion
+
+#region Image Helper
+        public ActionResult Image()
+        {
+           return View("Image");
+
+        }
+        [HttpPost]
+        public ActionResult Image(HttpPostedFileBase image)
+        {
+            ResourseViewModel im = new ResourseViewModel();
+                if (image != null)
+
+                {
+                    im.IdPeople = 1;
+                    im.IdRecord = 1;
+                    im.IdResourse = 1;
+                    im.ImageMimeType = image.ContentType;
+                    im.Resourse = new byte[image.ContentLength];
+                    image.InputStream.Read(im.Resourse, 0, image.ContentLength);
+                }
+                resourceService.SaveResouce(im.ToBLSource());
+              
+                return RedirectToAction("Index","Home");
+          
+        }
+       
+        public FileContentResult GetImage(int productId)
+        {
+            ResourseViewModel im = resourceService.GetImage(productId).ToPLSource();
+            if (im != null)
+            {
+                return File(im.Resourse, im.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
+#endregion
+ //public ActionResult ShowRecordsListNull(int Id = 0)
+        //{
+        //    if (Id == 0)
+        //    {
+        //        return PartialView("ShowRecordsList", recordService.GetAllRecords(Convert.ToInt32(Session["id"])).Select(rec => rec.ToMVCRecord()));
+
+        //    }
+        //    return PartialView("ShowRecordsList", recordService.GetAllRecords(Id).Select(rec => rec.ToMVCRecord()));
+
+        //}
+        //[HttpGet]
+      
+
+#region Comment Helper
+        public ActionResult ShowCommentsList(int IdRecord = 0, string comment = null)
+        {
+
+            if (IdRecord != 0 && !comment.IsEmpty())
+            {
+                CommentViewModel commentModel = new CommentViewModel();
+                commentModel.Comment = comment;
+                commentModel.IdUser = Convert.ToInt32(Session["id"]);
+                commentModel.IdRecord = IdRecord;
+                if (commentService.CreateComment(commentModel.ToBlComment()) > 0)
+                {
+                    if (Request.IsAjaxRequest())
+                    {
+                        return PartialView(commentService.GetAll(IdRecord).Select(com=>com.ToMVCComment()));
+                    }
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    View("Error");
+                }
+
+            }
+            return View("Error");
+
+        }
+
+        public ActionResult DeleteComment(int idComment = 0)
+        {
+            if (commentService.Delete(idComment))
+            {
+                return RedirectToAction("Index", "Account", Convert.ToInt32(Session["id"]));
+            }
+            return View("Error");
+        }
+#endregion
+        //public ActionResult ShowComments(IEnumerable<CommentViewModel> comments )
+        //{
+
+        //    return PartialView("ShowCommentsList",comments);
+
+        //}
         //[HttpPost]
         //public ActionResult EditModalRecord(RecordViewModel model)
         //{

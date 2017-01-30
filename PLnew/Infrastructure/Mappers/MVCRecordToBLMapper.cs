@@ -29,7 +29,9 @@ namespace PLnew.Infrastructure.Mappers
                 Theme = record.Theme,
                 Record = record.Text,
                 Id = record.Id,
-                DateOfPublication = record.DateOfPublication
+                DateOfPublication = record.DateOfPublication,
+                Comments = record.Comments.Select(comment => comment.ToMVCComment())
+                
             };
         }
     }

@@ -18,6 +18,7 @@ namespace ORM
         public byte[] Resourse { get; set; }
         public Nullable<int> IdRecord { get; set; }
         public Nullable<int> IdPeople { get; set; }
+        public string ImageMimeType { get; set; }
     
         public virtual Person Person { get; set; }
         public virtual Record Record { get; set; }

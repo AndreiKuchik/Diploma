@@ -36,13 +36,22 @@
                     <h3 align="center">@Model.Surname @Model.Name</h3>
                     <h5 align="center">@Model.Login</h5>
                 </div>
-                @if (Model.IdRole!=4)
+                @if (ViewBag.Status)
                 {
-                    <a href="@Url.Action("Subscribe", "Guest", new {id = Model.Id})">
+                    <a href="@Url.Action("Unsubscribe", "Guest")">
+                        <div class="auto">
+                            <h3 align="center">To unsubscribe</h3>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                     <a href="@Url.Action("Subscribe", "Guest")">
                         <div class="auto">
                             <h3 align="center">To subscribe</h3>
                         </div>
                     </a>
+                    
                 }
                     <div class="auto">
                         <div class="them">
@@ -59,7 +68,7 @@
             <div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
                 
                 <div id="results">
-                    @Html.Action("ShowRecordsListNull", Model.Id)
+                    @Html.Action("ShowRecordsListNull")
                 </div>
 
 

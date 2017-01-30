@@ -27,18 +27,22 @@ namespace PLnew.Controllers
         [HttpPost]
         public ActionResult Index(LoginViewModel model)
         {
+            Session["id"] = null;
+            Session["idRole"] = null;
             if (ModelState.IsValid)
             {
-                PersonViewModel person = service.Login(model.ToBllLogin()).ToPLUser();
-                if (person.Id>0)
+                int id = service.Login(model.ToBllLogin());
+                if (id>0)
                 {
-                    return RedirectToAction("Index", "Account",person);
+                    Session["id"] = id;
+                    return RedirectToAction("Index", "Account");
                 }
+                else if (id==0)
                 return View(model);
               
             }
 
-            return View();
+            return View("Error");
         }
 
 

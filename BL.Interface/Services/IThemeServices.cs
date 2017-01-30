@@ -11,7 +11,9 @@ namespace BL.Interface.Services
     {
         int CreateTheme(ThemeBL theme);
         IEnumerable<ThemeBL> GetAllThemes();
-
         IEnumerable<ThemeBL> GetAllWithCount();
+
+        IEnumerable<ThemeBL> Search(string name);
+        bool Delete(int id);
     }
 }

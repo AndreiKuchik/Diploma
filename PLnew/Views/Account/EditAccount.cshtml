@@ -1,0 +1,110 @@
+﻿@model PLnew.Models.PersonViewModel
+
+@{
+    ViewBag.Title = "EditAccount";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("EditAccount", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div align="center" class="formReg">
+        @Html.AntiForgeryToken()
+        <h2>Edit account.</h2>
+        <hr />
+        @*@Html.ValidationSummary()*@
+        <div class="form-group">
+            <div class="col-md-5">
+                @Html.Label("Email", new {@class = "col-md-2 control-label"})
+
+                
+                    @Html.TextBoxFor(m => m.Email, new {@class = "form-control", @placeholder = "Email"})
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+            </div>
+        <div class="form-group">
+            <div class="col-md-5">
+                @Html.Label("User name", new { @class = "col-md-2 control-label" })
+
+                @Html.TextBoxFor(m => m.Login, new { @class = "form-control", @placeholder = "User name" })
+                @Html.ValidationMessageFor(m => m.Login)
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-5">
+                @Html.Label("Mobil phone", new {@class = "col-md-2 control-label"})
+              
+                    @Html.TextBoxFor(m => m.MNumber, new {@class = "form-control", @placeholder = "Mobil phone"})
+                    @Html.ValidationMessageFor(m => m.MNumber)
+
+                </div>
+            </div>
+        <div class="form-group">
+            <div class="col-md-5">
+                @Html.Label("Surname", new {@class = "col-md-2 control-label"})
+               
+                    @Html.TextBoxFor(m => m.Surname, new {@class = "form-control", @placeholder = "Surname"})
+                    @Html.ValidationMessageFor(m => m.Surname)
+                </div>
+            </div>
+        <div class="form-group">
+            <div class="col-md-5">
+                @Html.Label("Name", new {@class = "col-md-2 control-label"})
+                
+                    @Html.TextBoxFor(m => m.Name, new {@class = "form-control", @placeholder = "Name"})
+                    @Html.ValidationMessageFor(m => m.Name)
+
+                </div>
+            </div>
+        <div class="form-group">
+            <div class="col-md-5">
+                @Html.Label("Password", new {@class = "col-md-2 control-label"})
+               
+                    @Html.PasswordFor(m => m.Password, new {@class = "form-control", @placeholder = "Password"})
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+            </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-3">
+                <input type="submit" class="btn btn-default" value="Register" />
+            </div>
+        </div>
+
+    </div>
+}
+<div class="modal fade" id="modal-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 align="center">The user with the same name exists</h4>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+   @if (ViewBag.Repetition!=null)
+{
+    <script type="text/javascript"
+            src="@Url.Content("~/scripts/Modal.js")">
+    </script>
+}
+
+}
+
+
+
+

@@ -3,32 +3,109 @@
 
 @foreach (var item in Model)
 {
-    
-    <div class="col-md-3 textArea">
-        <div class="form-group">
-            <div class="comment">
-                @item.Theme
+    <div class="row">
+        <div class="col-md-3 textArea">
+            <div class="form-group">
+                <div class="comment">
+                    @item.Theme
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-9 textArea">
-        <div class="form-group">
-            <div class="comment">
-                @item.Record
-            </div>
-            <div class="row">
-                <div class="col-md-6">
+        <div class="col-md-9 textArea">
+            <div class="form-group">
+                <div class="comment">
+                    @item.Record
                 </div>
-                <div class="col-md-6">
-                    <div class="helpInfo ">
-                        <div class="date  ">
-                            @item.DateOfPublication
+                <div class="row">
+                    @if (Convert.ToInt32(Session["idRole"]) == 2)
+                    {
+                        <div class="col-md-1">
+                            <div class="helpInfoDrop">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=" glyphicon glyphicon-list" style="font-size: 20px;"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="@Url.Action("DeleteRecord", "Account", new {id = item.Id})" class="glyphicon glyphicon-trash"> Delete </a></li>
+                                    <li><a class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#@item.Id"> Edit</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-md-5">
+                        <div class="spoilerBtn">
+                            <a href="#spoiler-@item.Id.ToString()" data-toggle="collapse" class="btn btn-primary spoiler collapsed">Comments</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="helpInfo ">
+                            <div class="date  ">
+                                @item.DateOfPublication
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+     <div class="collapse" id="spoiler-@item.Id">
+         <div class=" row helpSpoiler comments">
+             @using (Ajax.BeginForm("ShowCommentsList","Account", new AjaxOptions { UpdateTargetId = "updateComments-"+@item.Id.ToString(), OnSuccess = "OnSuccess" }))
+             {
+                 <div class="form-group ">
+                     @Html.Hidden("IdRecord", @item.Id)
+                     <div class="col-md-12 textArea">
+                         @Html.TextArea("comment", "", new {@id = "comment", @class = "form-control", @placeholder = "Your comment"})
+                     </div>
+                 </div>
+                 <div class="form-group">
+                     <div class="col-md-12">
+
+                         <button type="submit" class="btn btn-default" id="res">Publish</button>
+                     </div>
+
+                 </div>
+            }
+             <div id="updateComments-@item.Id">
+                 @if (@item.Comments != null)
+{
+    foreach (var comment in item.Comments)
+    {
+       
+            <div class="col-md-3 textArea">
+                <div class="form-group">
+                    <div class="comment">
+                        @if (item.IdPeople != comment.Author.Id)
+                        {
+                            <a href="@Url.Action("Index", "Guest", new {id = comment.Author.Id})"> @comment.Author.Login </a>
+                        }
+                        else
+                        {
+                             <a href="@Url.Action("Index", "Account", new {id = comment.Author.Id})"> @comment.Author.Login </a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 textArea">
+                <div class="form-group">
+                    <div class="comment">
+                        @comment.Comment
+                    </div>
+                </div>
+                @if (ViewBag.Id == comment.Author.Id || Convert.ToInt32(Session["idRole"]) == 2)
+                {
+                    <div class="col-md-5">
+                        <div class="helpInfo ">
+                            <div class="date  ">
+                                <a href="@Url.Action("DeleteComment", "Account", new {idComment = comment.Id})" class="glyphicon glyphicon-trash"> Delete </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+      
+    }
+}
+               </div>
+            </div>
+        </div>
 
 }

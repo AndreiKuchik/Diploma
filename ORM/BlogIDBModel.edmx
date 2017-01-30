@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LocalDatabaseBlogModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LocalDatabaseBlogModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Comments">
           <Key>
             <PropertyRef Name="IdComments" />
@@ -42,9 +42,10 @@
             <PropertyRef Name="IdResourse" />
           </Key>
           <Property Name="IdResourse" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Resourse" Type="image" Nullable="false" />
+          <Property Name="Resourse" Type="varbinary(max)" Nullable="false" />
           <Property Name="IdRecord" Type="int" />
           <Property Name="IdPeople" Type="int" />
+          <Property Name="ImageMimeType" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -207,8 +208,7 @@
             <End Role="Sign" EntitySet="Sign" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LocalDatabaseBlogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -265,6 +265,7 @@
           <Property Name="IdPeople" Type="Int32" />
           <NavigationProperty Name="Person" Relationship="Self.FK_Resourses_Person" FromRole="Resourses" ToRole="Person" />
           <NavigationProperty Name="Record" Relationship="Self.FK_Resourses_Records" FromRole="Resourses" ToRole="Records" />
+          <Property Name="ImageMimeType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -474,6 +475,7 @@
           <EntitySetMapping Name="Resourses">
             <EntityTypeMapping TypeName="LocalDatabaseBlogModel.Resours">
               <MappingFragment StoreEntitySet="Resourses">
+                <ScalarProperty Name="ImageMimeType" ColumnName="ImageMimeType" />
                 <ScalarProperty Name="IdResourse" ColumnName="IdResourse" />
                 <ScalarProperty Name="Resourse" ColumnName="Resourse" />
                 <ScalarProperty Name="IdRecord" ColumnName="IdRecord" />

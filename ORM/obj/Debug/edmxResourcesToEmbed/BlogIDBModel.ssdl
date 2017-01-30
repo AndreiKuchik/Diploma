@@ -37,9 +37,10 @@
       <PropertyRef Name="IdResourse" />
     </Key>
     <Property Name="IdResourse" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Resourse" Type="image" Nullable="false" />
+    <Property Name="Resourse" Type="varbinary(max)" Nullable="false" />
     <Property Name="IdRecord" Type="int" />
     <Property Name="IdPeople" Type="int" />
+    <Property Name="ImageMimeType" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Roles">
     <Key>

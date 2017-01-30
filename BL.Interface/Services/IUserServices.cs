@@ -10,12 +10,15 @@ namespace BL.Interface.Services
     public interface IUserServices
     {
         bool Delete(int id);
-        PersonBL Login(PersonBL login);
+        int Login(PersonBL login);
         PersonBL GetById(int id);
         int CreateUser(PersonBL user);
         IEnumerable<PersonBL> GetAllFriends(int id);
         IEnumerable<PersonBL> GetAllWhithCount();
-        IEnumerable<int> ToSubscribe(int idOwner, int idUser);
-        IEnumerable<int> GetSubscribe(int idOwner);
+        void ToSubscribe(int idOwner, int idUser);
+        bool GetSubscribe(int idOwner, int idGuest);
+        int Update(PersonBL person);
+        IEnumerable<PersonBL> Search(string name);
+        void Unsubscribe(int idOwner, int idGuest);
     }
 }

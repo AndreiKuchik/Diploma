@@ -75,12 +75,54 @@ namespace DAL.Concrete
             }
         }
 
-        public void Update(Interface.Entity.DalPerson entity)
+        public int Update(DalPerson entity)
         {
-            throw new NotImplementedException();
+            
+            try
+            {
+
+                var person = context.People.Find(entity.Id);
+                if (person.Login == entity.Login)
+                {
+                    person.Login = entity.Login;
+                    person.IdRole = 1;
+                    person.EmailAddress = entity.EmailAddress;
+                    person.Password = entity.Password;
+                    person.MobilPhone = entity.MobilPhone;
+                    person.FirstName = entity.FirstName;
+                    person.LastName = entity.LastName;
+                    context.Entry(person).State = EntityState.Modified;
+                    context.SaveChanges();
+                    return 1;
+                }
+                else
+                {
+                    var persons = (from user in context.People where user.Login.Equals(entity.Login) select user).FirstOrDefault();
+                    if (persons == null)
+                    {
+                        person.Login = entity.Login;
+                        person.IdRole = 1;
+                        person.EmailAddress = entity.EmailAddress;
+                        person.Password = entity.Password;
+                        person.MobilPhone = entity.MobilPhone;
+                        person.FirstName = entity.FirstName;
+                        person.LastName = entity.LastName;
+                        context.Entry(person).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
+            }
+            catch (Exception)
+            {
+
+                return -1;
+            }
+           
         }
-
-
+        
         public IEnumerable<DalPerson> GetAll()
         {
             try
@@ -128,12 +170,33 @@ namespace DAL.Concrete
             return ListFriends;
         }
 
-        public DalPerson Login(DalPerson person)
+        public int Login(DalPerson person)
         {
             try
             {
                 
                 var q = (from s in context.People where s.Login.Equals(person.Login) && s.Password.Equals(person.Password) select s).FirstOrDefault();
+
+                if (q != null)
+                {
+
+                    return q.IdPeople;
+
+                }
+                return 0;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+
+        public DalPerson GeyById(int id)
+        {
+            try
+            {
+
+                var q = context.People.Remove(context.People.Find(id));
 
                 if (q != null)
                 {
@@ -150,15 +213,14 @@ namespace DAL.Concrete
                         IdRole = q.IdRole
                     };
                 }
-                person.Id = 0;
-                return person;
+                
+                return null;
             }
             catch (Exception)
             {
                 return null;
             }
         }
-
 
         public IEnumerable<DalPerson> GetAllFrineds(int Id)
         {
@@ -229,10 +291,10 @@ namespace DAL.Concrete
                 return null;
             }
         }
-
-
-        public IEnumerable<int> ToSubscribe(int idOwner, int idUser)
+        public void ToSubscribe(int idOwner, int idUser)
         {
+            try
+            {
                 var sign = new Sign()
                 {
                     IdSign = idUser,
@@ -242,14 +304,15 @@ namespace DAL.Concrete
                 };
                 context.Signs.Add(sign);
                 context.SaveChanges();
+            }
+            catch (Exception)
+            {
 
-                var ListIdFriends = (from friend in context.Signs where friend.IdOwner == idOwner select friend);
-                List<int> IdFriends = new List<int>();
-                foreach (var friend in ListIdFriends)
-                {
-                    IdFriends.Add(friend.IdOwner);
-                }
-            return IdFriends;
+                throw;
+            }
+                
+               
+            
 
         }
         
@@ -262,6 +325,46 @@ namespace DAL.Concrete
                 IdFriends.Add(friend.IdSign);
             }
             return IdFriends;
+        }
+
+        public IEnumerable<DalPerson> Search(string name)
+        {
+            var persons = (from person in context.People where person.Login.StartsWith(name) select person); 
+            List<DalPerson> ListFriends = new List<DalPerson>();
+            foreach (var person in persons)
+            {
+                    DalPerson vm = new DalPerson();
+                    vm.Id = person.IdPeople;
+                    vm.EmailAddress = person.EmailAddress;
+                    vm.FirstName = person.FirstName;
+                    vm.IdRole = person.IdRole;
+                    vm.LastName = person.LastName;
+                    vm.Login = person.Login;
+                    vm.MobilPhone = person.MobilPhone;
+                    ListFriends.Add(vm);
+            }
+            RecordRepository rep = new RecordRepository();
+            IEnumerable<RecordDal> reclist = rep.GetAll();
+            foreach (var friend in ListFriends)
+            {
+                foreach (var record in reclist)
+                {
+                    if (record.IdPeople == friend.Id)
+                    {
+                        friend.CountRecord++;
+                    }
+                }
+              
+            }
+            return ListFriends;
+        }
+        public void Unsubscribe(int idOwner, int idGuest)
+        {
+
+            var entity = (from record in context.Signs where record.IdOwner == idOwner && record.IdSign == idGuest select record).FirstOrDefault();
+                context.Signs.Remove(entity);
+                context.SaveChanges();
+               
         }
        
     }

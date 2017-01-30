@@ -13,5 +13,6 @@ namespace BL.Interface.Entities
         public System.DateTime DateOfPublication { get; set; }
         public int IdPeople { get; set; }
         public string Theme { get; set; }
+        public IEnumerable<CommentBL> Comments { get; set; }
     }
 }

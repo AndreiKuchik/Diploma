@@ -29,10 +29,10 @@ namespace BL.Services
             return id;
         }
 
-        public PersonBL Login(PersonBL login)
+        public int Login(PersonBL login)
         {
 
-            return userRepository.Login(login.ToDalUser()).ToBlPerson();
+            return userRepository.Login(login.ToDalUser());
         }
 
 
@@ -51,19 +51,43 @@ namespace BL.Services
             return userRepository.GetById(id).ToBlPerson();
         }
         
-        public IEnumerable<int> ToSubscribe(int idOwner, int idUser)
+        public void ToSubscribe(int idOwner, int idUser)
         {
-            return userRepository.ToSubscribe(idOwner, idUser);
+             userRepository.ToSubscribe(idOwner, idUser);
         }
         
-        public IEnumerable<int> GetSubscribe(int idOwner)
+        public bool GetSubscribe(int idOwner, int idGuest)
         {
-            return userRepository.GetSubscribe(idOwner);
+            
+            IEnumerable<int> listIdFriends = userRepository.GetSubscribe(idOwner);
+             foreach (var sign in listIdFriends)
+                {
+                    if (sign == idGuest)
+                    {
+                        return true;
+                    }
+                }
+            return false;
         }
 
         public bool Delete(int id)
         {
             return userRepository.Delete(id);
+        }
+        
+        public int Update(PersonBL person)
+        {
+            return userRepository.Update(person.ToDalUser());
+        }
+        
+        public IEnumerable<PersonBL> Search(string name)
+        {
+            return userRepository.Search(name).Select(person => person.ToBlPerson());
+        }
+
+        public void Unsubscribe(int idOwner, int idGuest)
+        {
+            userRepository.Unsubscribe(idOwner,idGuest);
         }
     }
 }

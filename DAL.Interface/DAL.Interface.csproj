@@ -47,10 +47,13 @@
     <Compile Include="Entity\Resourse.cs" />
     <Compile Include="Entity\Roles.cs" />
     <Compile Include="Entity\Sign.cs" />
+    <Compile Include="Entity\Source.cs" />
     <Compile Include="Entity\Theme.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ICommentRepository.cs" />
     <Compile Include="Repository\IRecordRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\ISourceRepository.cs" />
     <Compile Include="Repository\IThemeRepository.cs" />
     <Compile Include="Repository\IUnitOfWork.cs" />
     <Compile Include="Repository\IUserRepository.cs" />

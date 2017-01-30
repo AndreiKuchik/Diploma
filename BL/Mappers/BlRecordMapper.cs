@@ -31,8 +31,8 @@ namespace BL.Mappers
                 Theme = dalRecod.Theme,
                 IdPeople = dalRecod.IdPeople,
                 Text = dalRecod.Text,
-                DateOfPublication = dalRecod.DateOfPublication
-                
+                DateOfPublication = dalRecod.DateOfPublication,
+                Comments = dalRecod.Comments.Select(comment=>comment.ToBlComment())
             };
         }
     }

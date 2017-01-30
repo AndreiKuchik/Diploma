@@ -1,0 +1,22 @@
+﻿@model IEnumerable<PLnew.ViewModels.CommentViewModel>
+
+@if (Model != null)
+{
+ foreach (var comment in Model)
+ {
+     <div class="col-md-3 textArea">
+         <div class="form-group">
+             <div class="comment">
+                 <a href="@Url.Action("Index", "Guest", new { id = comment.Author.Id })"> @comment.Author.Login </a>
+             </div>
+         </div>
+     </div>
+     <div class="col-md-9 textArea">
+         <div class="form-group">
+             <div class="comment">
+                 @comment.Comment
+             </div>
+         </div>
+     </div>
+ }
+}

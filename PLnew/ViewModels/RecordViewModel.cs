@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using PLnew.ViewModels;
 
 namespace PLnew.Models
 {
@@ -20,6 +21,8 @@ namespace PLnew.Models
         public string Theme { get; set; }
 
         public int IdPeople { get; set; }
+
+        public IEnumerable<CommentViewModel> Comments { get; set; }
 
     }
 }

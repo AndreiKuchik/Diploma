@@ -14,6 +14,7 @@ namespace DAL.Interface.Entity
         public int IdPeople { get; set; }
         public string Theme { get; set; }
         public int IdTheme { get; set; }
+        public IEnumerable<DalComment> Comments { get; set; }
      
     }
 }

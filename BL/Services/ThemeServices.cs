@@ -39,5 +39,16 @@ namespace BL.Services
         {
             return themeRepository.GetAllWithCount().Select(theme => theme.ToBllTheme());
         }
+
+
+        public IEnumerable<ThemeBL> Search(string name)
+        {
+            return themeRepository.Search(name).Select(m => m.ToBllTheme());
+        }
+
+        public bool Delete(int id)
+        {
+            return themeRepository.Delete(id);
+        }
     }
 }

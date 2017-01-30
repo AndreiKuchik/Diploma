@@ -12,5 +12,8 @@ namespace DAL.Interface.Repository
     {
         IEnumerable<DalTheme> GetAll();
         IEnumerable<DalTheme> GetAllWithCount();
+
+        IEnumerable<DalTheme> Search(string name);
+        bool Delete(int id);
     }
 }

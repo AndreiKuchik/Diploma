@@ -39,9 +39,24 @@ namespace DAL.Concrete
             }
         }
 
-        public bool Delete(int e)
+        public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                RecordRepository rec =new RecordRepository();
+                if (rec.DeleteByIdTheme(id))
+                {
+                    context.Themes.Remove(context.Themes.Find(id));
+                    context.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
 
         public IEnumerable<DalTheme> GetAll()
@@ -96,6 +111,34 @@ namespace DAL.Concrete
             }
             return listnew;
 
+        }
+
+        public IEnumerable<DalTheme> Search(string name)
+        {
+            var persons = (from person in context.Themes where person.TitleOfTheme.StartsWith(name) select person);
+            List<DalTheme> ListThems = new List<DalTheme>();
+            RecordRepository rep = new RecordRepository();
+            IEnumerable<RecordDal> reclist = rep.GetAll();
+            foreach (var person in persons)
+            {
+                DalTheme vm = new DalTheme();
+                vm.Id = person.IdTheme;
+                vm.TitleOfTheme = person.TitleOfTheme;
+
+                ListThems.Add(vm);
+            }
+            foreach (var theme in ListThems)
+            {
+                foreach (var record in reclist)
+                {
+                    if (record.IdTheme == theme.Id)
+                    {
+                        theme.Count++;
+                    }
+                }
+            }
+
+            return ListThems;
         }
     }
 }

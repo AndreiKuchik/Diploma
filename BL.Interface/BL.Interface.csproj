@@ -39,11 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\CommentBL.cs" />
     <Compile Include="Entities\PersonBL.cs" />
     <Compile Include="Entities\RecordBL.cs" />
+    <Compile Include="Entities\ResourceBL.cs" />
     <Compile Include="Entities\ThemeBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ICommentService.cs" />
     <Compile Include="Services\IRecordService.cs" />
+    <Compile Include="Services\IResourceServices.cs" />
     <Compile Include="Services\IThemeServices.cs" />
     <Compile Include="Services\IUserServices.cs" />
   </ItemGroup>

@@ -30,11 +30,15 @@ namespace DependencyResolver
                 //kernel.Bind<DbContext>().To<ORM.LocalDatabaseBlogEntities>().InSingletonScope();
 #region Services
                 kernel.Bind<IUserServices>().To<UserServices>();
+                kernel.Bind<ICommentService>().To<CommentServices>();
                 kernel.Bind<IThemeServices>().To<ThemeServices>();
                 kernel.Bind<IRecordService>().To<RecordServices>();
+                kernel.Bind<IResourceServices>().To<ResourceServices>();
 #endregion
 #region Repository
+                kernel.Bind<ISourceRepository>().To<SourceRepository>();
                 kernel.Bind<IRecordRepository>().To<RecordRepository>();
+                kernel.Bind<ICommentRepository>().To<CommentRepository>();
                 kernel.Bind<IUserRepository>().To<UserRepository>();
                 kernel.Bind<IThemeRepository>().To<ThemeRepository>();
 #endregion

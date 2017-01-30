@@ -39,6 +39,7 @@
     <EntitySetMapping Name="Resourses">
       <EntityTypeMapping TypeName="LocalDatabaseBlogModel.Resours">
         <MappingFragment StoreEntitySet="Resourses">
+          <ScalarProperty Name="ImageMimeType" ColumnName="ImageMimeType" />
           <ScalarProperty Name="IdResourse" ColumnName="IdResourse" />
           <ScalarProperty Name="Resourse" ColumnName="Resourse" />
           <ScalarProperty Name="IdRecord" ColumnName="IdRecord" />

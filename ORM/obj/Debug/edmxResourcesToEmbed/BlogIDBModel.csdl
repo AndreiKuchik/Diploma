@@ -53,6 +53,7 @@
     <Property Name="IdPeople" Type="Int32" />
     <NavigationProperty Name="Person" Relationship="Self.FK_Resourses_Person" FromRole="Resourses" ToRole="Person" />
     <NavigationProperty Name="Record" Relationship="Self.FK_Resourses_Records" FromRole="Resourses" ToRole="Records" />
+    <Property Name="ImageMimeType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
