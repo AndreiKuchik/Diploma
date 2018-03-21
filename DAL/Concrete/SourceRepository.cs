@@ -12,6 +12,7 @@ namespace DAL.Concrete
     public class SourceRepository:ISourceRepository
     {
         private readonly LocalDatabaseBlogEntities context = new LocalDatabaseBlogEntities();
+        //private readonly LocalDatabaseBlogEntities1 context = new LocalDatabaseBlogEntities1();
         public void SaveResouce(SourceDal source)
         {
 
@@ -54,7 +55,7 @@ namespace DAL.Concrete
                
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }

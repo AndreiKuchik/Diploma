@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="eb66c06bf2bd422bb79a35e697c14ce9" Name="Diagram1" ZoomLevel="55">
-        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Comment" Width="1.5" PointX="1.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Person" Width="1.5" PointX="3.25" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Record" Width="1.5" PointX="10.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Resours" Width="1.5" PointX="5.625" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Role" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Sign" Width="1.5" PointX="0.5" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Theme" Width="1.5" PointX="7.375" PointY="2.625" IsExpanded="true" />
+      <Diagram DiagramId="eb66c06bf2bd422bb79a35e697c14ce9" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Comment" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Person" Width="1.5" PointX="7.125" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Record" Width="1.5" PointX="9.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Resours" Width="1.5" PointX="11.625" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Role" Width="1.5" PointX="4.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Sign" Width="1.5" PointX="3.875" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LocalDatabaseBlogModel.Theme" Width="1.5" PointX="11.625" PointY="0.5" IsExpanded="true" />
         <AssociationConnector Association="LocalDatabaseBlogModel.FK_Comments_People" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDatabaseBlogModel.FK_Comments_Record" ManuallyRouted="false" />
         <AssociationConnector Association="LocalDatabaseBlogModel.FK_Person_Roles" ManuallyRouted="false" />

@@ -3,3 +3,8 @@ E:\EpamTraning\Project\ProjectForEpam\BL.Interface\bin\Debug\BL.Interface.pdb
 E:\EpamTraning\Project\ProjectForEpam\BL.Interface\obj\Debug\BL.Interface.csprojResolveAssemblyReference.cache
 E:\EpamTraning\Project\ProjectForEpam\BL.Interface\obj\Debug\BL.Interface.dll
 E:\EpamTraning\Project\ProjectForEpam\BL.Interface\obj\Debug\BL.Interface.pdb
+F:\EpamTraning\Project\ProjectForEpam\BL.Interface\bin\Debug\BL.Interface.dll
+F:\EpamTraning\Project\ProjectForEpam\BL.Interface\bin\Debug\BL.Interface.pdb
+F:\EpamTraning\Project\ProjectForEpam\BL.Interface\obj\Debug\BL.Interface.csprojResolveAssemblyReference.cache
+F:\EpamTraning\Project\ProjectForEpam\BL.Interface\obj\Debug\BL.Interface.dll
+F:\EpamTraning\Project\ProjectForEpam\BL.Interface\obj\Debug\BL.Interface.pdb

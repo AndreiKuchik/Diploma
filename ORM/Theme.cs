@@ -14,7 +14,6 @@ namespace ORM
     
     public partial class Theme
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Theme()
         {
             this.Records = new HashSet<Record>();
@@ -23,7 +22,6 @@ namespace ORM
         public int IdTheme { get; set; }
         public string TitleOfTheme { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Record> Records { get; set; }
     }
 }

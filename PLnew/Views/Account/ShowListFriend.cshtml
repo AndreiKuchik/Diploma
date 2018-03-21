@@ -8,7 +8,7 @@
     </div>
     <div class="loginFrend">
         <ul class="nav nav-pills ">
-            @item.Login
+            <a href="@Url.Action("Index", "Guest", new {id = item.Id})"> @item.Login </a>
             @*<li>@Html.ActionLink("User Name", "About", "Home")</li>*@
         </ul>
     </div>

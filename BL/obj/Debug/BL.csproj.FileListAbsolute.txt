@@ -7,3 +7,12 @@ E:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\BL.Interface.pdb
 E:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\DAL.Interface.pdb
 E:\EpamTraning\Project\ProjectForEpam\BL\obj\Debug\BL.dll
 E:\EpamTraning\Project\ProjectForEpam\BL\obj\Debug\BL.pdb
+F:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\BL.dll
+F:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\BL.pdb
+F:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\BL.Interface.dll
+F:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\DAL.Interface.dll
+F:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\BL.Interface.pdb
+F:\EpamTraning\Project\ProjectForEpam\BL\bin\Debug\DAL.Interface.pdb
+F:\EpamTraning\Project\ProjectForEpam\BL\obj\Debug\BL.csprojResolveAssemblyReference.cache
+F:\EpamTraning\Project\ProjectForEpam\BL\obj\Debug\BL.dll
+F:\EpamTraning\Project\ProjectForEpam\BL\obj\Debug\BL.pdb

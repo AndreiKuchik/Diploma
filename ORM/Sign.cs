@@ -16,6 +16,7 @@ namespace ORM
     {
         public int IdOwner { get; set; }
         public int IdSign { get; set; }
+        public int Id { get; set; }
     
         public virtual Person Person { get; set; }
     }

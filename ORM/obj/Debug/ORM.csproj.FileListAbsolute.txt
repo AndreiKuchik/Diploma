@@ -8,3 +8,15 @@ E:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\EntityFramework.SqlServer.xm
 E:\EpamTraning\Project\ProjectForEpam\ORM\obj\Debug\ORM.csprojResolveAssemblyReference.cache
 E:\EpamTraning\Project\ProjectForEpam\ORM\obj\Debug\ORM.dll
 E:\EpamTraning\Project\ProjectForEpam\ORM\obj\Debug\ORM.pdb
+F:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\ORM.dll.config
+F:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\ORM.dll
+F:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\ORM.pdb
+F:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\EntityFramework.dll
+F:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\EntityFramework.SqlServer.dll
+F:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\EntityFramework.xml
+F:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\EntityFramework.SqlServer.xml
+F:\EpamTraning\Project\ProjectForEpam\ORM\obj\Debug\ORM.csprojResolveAssemblyReference.cache
+F:\EpamTraning\Project\ProjectForEpam\ORM\obj\Debug\ORM.dll
+F:\EpamTraning\Project\ProjectForEpam\ORM\obj\Debug\ORM.pdb
+F:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\LocalDatabaseBlog.mdf
+F:\EpamTraning\Project\ProjectForEpam\ORM\bin\Debug\LocalDatabaseBlog_log.ldf

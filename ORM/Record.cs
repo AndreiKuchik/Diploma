@@ -14,7 +14,6 @@ namespace ORM
     
     public partial class Record
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Record()
         {
             this.Comments = new HashSet<Comment>();
@@ -27,11 +26,9 @@ namespace ORM
         public int IdPeople { get; set; }
         public int IdTheme { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual Person Person { get; set; }
         public virtual Theme Theme { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Resours> Resourses { get; set; }
     }
 }

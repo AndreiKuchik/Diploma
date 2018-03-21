@@ -102,5 +102,6 @@ namespace PLnew.Models
 
         public int CountREcord { get; set; }
         public IEnumerable<int> ListFriendId { get; set; }
+        
     }
 }
